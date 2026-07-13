@@ -76,7 +76,7 @@ export default function Main() {
                             </div>
                             <button
                                 type="submit"
-                                className="rounded-2xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-700"
+                                className="rounded-2xl bg-[#76A973] px-5 py-3 text-sm font-semibold cursor-pointer text-white transition hover:bg-[#3c5f3a]"
                             >
                                 Add Task
                             </button>
