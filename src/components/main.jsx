@@ -21,7 +21,6 @@ export default function Main() {
 
     const handleCheck = (id, completed) => {
         const Updatechecked = updatecheck(id, !completed)
-        console.log("hogye")
         setTodos(Updatechecked)
     }
 
@@ -34,7 +33,7 @@ export default function Main() {
     return (
         <div className="min-h-screen bg-[#F4F6F4]  px-4 py-8 text-slate-800 sm:px-6 lg:px-8 max-md:px-1 max-md:py-2">
             <div className="mx-auto max-md:w-full flex max-w-6xl flex-col gap-6 rounded-[36px] border border-violet-200/70 bg-white/85 p-6 sm:p-8 lg:p-10 max-md:p-4">
-                <div className="flex flex-col gap-4 rounded-[24px] border border-violet-100 bg-[#76A973] p-6 max-md:p-6 text-white sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-4 rounded-3xl border border-violet-100 bg-[#76A973] p-6 max-md:p-6 text-white sm:flex-row sm:items-center sm:justify-between">
                     <div>
                         <p className="text-sm font-semibold uppercase tracking-[0.35em] text-violet-100 max-md:text-center">Productivity</p>
                         <h1 className="mt-2 text-4xl font-black tracking-tight sm:text-5xl max-md:text-center">TO DO LIST</h1>

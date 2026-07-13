@@ -1,8 +1,36 @@
-import nextId from "react-id-generator"
+function getWrapper(){
+    const storeData = localStorage.getItem("todo");
+    if (!storeData) return [];
 
-export function create(name, task){
-    const todo = JSON.parse(localStorage.getItem('todo')) || [];
+    if (storeData) {
+        try {
+            const parsedData = JSON.parse(storeData);
+            const now = new Date();
 
+            if (now.getTime() > parsedData.expiry) {
+                localStorage.removeItem("todo");
+                return [];
+            } 
+            return parsedData.value || [];
+        } catch (e) {
+            return [];
+        }
+    }
+}
+
+function saveWrapper(todoArry){
+    const now = new Date();
+    const wrapper = {
+        value: todoArry,
+        expiry: now.getTime() + 86400000,
+    };
+
+    localStorage.setItem("todo", JSON.stringify(wrapper));
+}
+
+export function create(name, task) {
+
+    const currentTodo = getWrapper();
     const id = crypto.randomUUID();
 
     const createtodo = {
@@ -12,33 +40,31 @@ export function create(name, task){
         completed: false,
     };
 
-    const updatetodo = [...todo, createtodo];
-    localStorage.setItem('todo', JSON.stringify(updatetodo));
+    const updatetodo = [...currentTodo, createtodo];
+    saveWrapper(updatetodo)
 
     return updatetodo;
-
 }
 
 export function updatecheck(id, completed){
-    const todo = JSON.parse(localStorage.getItem('todo')) || [];
+    const todo = getWrapper();
 
     const updatecheck = todo.map((t) =>
         t.id === id ? {...t, completed} : t
     )
 
-    localStorage.setItem('todo', JSON.stringify(updatecheck));
+    saveWrapper(updatecheck)
     return updatecheck;
 }
 
 export function getTodo(){
-    const todo = JSON.parse(localStorage.getItem('todo')) || [];
-    return todo;
+    return getWrapper();
 }
 
 export function todoDelete(id){
-    const todo = JSON.parse(localStorage.getItem('todo')) || [];
+    const todo = getWrapper();
     const todoUpdate = todo.filter((t) => t.id !== id )
-    localStorage.setItem('todo', JSON.stringify(todoUpdate))
+    saveWrapper(todoUpdate)
 
     return todoUpdate;
 }
